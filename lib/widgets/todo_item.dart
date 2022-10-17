@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../models/colors.dart';
+import '../utils/colors.dart';
 import '../models/todo.dart';
 
 class TodoItem extends StatelessWidget {
   final Todo todo;
-  const TodoItem({super.key, required this.todo});
+  final onTapped;
+  final onDeleteItem;
+  
+  const TodoItem({super.key, required this.todo, this.onTapped, this.onDeleteItem});
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +21,14 @@ class TodoItem extends StatelessWidget {
         ),
         onTap: () {
           print('Clicked todo item');
+          onTapped(todo);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
         tileColor: white,
         leading: Icon(
-          todo.isDone?Icons.check_box: Icons.check_box_outline_blank,
+          todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
           color: blue,
         ),
         title: Text(
@@ -32,24 +36,26 @@ class TodoItem extends StatelessWidget {
           style: TextStyle(
             fontSize: 16,
             color: black,
-            decoration: todo.isDone? TextDecoration.lineThrough : null,
+            decoration: todo.isDone ? TextDecoration.lineThrough : null,
           ),
         ),
         trailing: Container(
-            height: 35,
-            width: 35,
-            decoration: BoxDecoration(
-              color: red,
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: IconButton(
-              onPressed: () {
-                print('Clicked on delete icon');
-              },
-              icon: Icon(Icons.delete),
-              color: white,
-              iconSize: 18,
-            )),
+          height: 35,
+          width: 35,
+          decoration: BoxDecoration(
+            color: red,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: IconButton(
+            onPressed: () {
+              print('Clicked on delete icon');
+              onDeleteItem(todo.id);
+            },
+            icon: Icon(Icons.delete),
+            color: white,
+            iconSize: 18,
+          ),
+        ),
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'models/colors.dart';
+import 'utils/colors.dart';
 import 'screens/home.dart';
 import 'widgets/search_box.dart';
 import 'widgets/todo_item.dart';
